@@ -1,0 +1,22 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb" // Provider é o nosso banco
+  url      = env("DATABASE_URL")
+}
+
+model Customer {
+  id String @id @default(auto()) @map("_id") @db.ObjectId // Neste trecho do código estou criando um capo que se chama 'Id' na minha tabela e ele será definido automaticamente
+  name String
+  email String 
+  status Boolean 
+  created_at DateTime? @default(now()) // Por padrão ele vai começar gerando automaticamente
+  updated_at DateTime? @default(now())
+
+  @@map("customers") // Estou mapeando a tabela e fazendo com que apareça no nosso 'mongo_db' como 'customers'
+}
